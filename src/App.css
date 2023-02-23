@@ -10,11 +10,7 @@ flex-direction: column;
 .text-btn{
     display:flex;
     flex-direction: row;
+    margin-bottom: 30px;
     align-items: center;
 }
-.button{
 
-margin: 20px;
-
-
-}

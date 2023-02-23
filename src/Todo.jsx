@@ -1,14 +1,17 @@
 import {
   Fab,
   List,
+  ListItem,
   ListItemButton,
   ListItemText,
   TextField,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import "./App.css";
+
 function Todo() {
   const [value, setValue] = useState("");
   const [val, setVal] = useState([]);
@@ -18,7 +21,7 @@ function Todo() {
   }, []);
 
   const handleClick = (e) => {
-    if (!value) {
+    if (!value || value.trim() === "") {
       alert("enter some value");
     } else {
       setVal([...val, value]);
@@ -37,9 +40,7 @@ function Todo() {
   return (
     <div>
       <div className="container1">
-        <span style={{ marginTop: "20px" }}>NOTE :</span>
-        <h4 style={{ color: "red" }}>To delete todo click on TODOLIST</h4>
-        <div className="text-btn">
+        <div className="text-btn" style={{ marginTop: "30px" }}>
           <TextField
             id="standard-basic"
             label="Todo"
@@ -47,18 +48,17 @@ function Todo() {
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <div className="button">
-            <Fab color="secondary" aria-label="edit">
-              <EditIcon type="button" onClick={handleClick} />
-            </Fab>
-          </div>
+
+          <Fab color="secondary" aria-label="edit">
+            <EditIcon type="button" onClick={handleClick} />
+          </Fab>
         </div>
         <div className="list">
           <List
             sx={{
               position: "relative",
               overflow: "auto",
-              maxHeight: 300,
+              maxHeight:'300px'
             }}
           >
             {val?.map((data, index) => (
@@ -69,17 +69,19 @@ function Todo() {
                     fontSize: "17px",
                     backgroundColor: "#9c27b0",
                     color: "white",
-                    transition: 'background-color 1s ease-out 100ms',
-                    borderRadius: "20px",
+                    transition: "background-color 1s ease-out 100ms",
+                    borderRadius: "0px 50px 50px",
+                    padding: "3px",
                     "&:hover": { color: "white", backgroundColor: "red" },
-
-                    
-
                   }}
-                  onClick={() => handleDelete(index)}
-                  variant="outlined"
                 >
-                  {data}
+                  <ListItem
+                    secondaryAction={
+                      <DeleteIcon onClick={() => handleDelete(index)} />
+                    }
+                  >
+                    {data}
+                  </ListItem>
                 </ListItemButton>
               </ListItemText>
             ))}
